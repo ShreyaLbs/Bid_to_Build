@@ -7,315 +7,488 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css">
+  <!-- No-flash dark-mode script (must be render-blocking, before body paint) -->
   <script>
     try {
-      if (localStorage.getItem('auroraTheme') === 'dark') {
+      if (localStorage.getItem('auroraTheme') === 'dark')
         document.documentElement.setAttribute('data-bs-theme', 'dark');
-      }
     } catch(e) {}
   </script>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg sticky-top border-ink-bottom bg-paper">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-        <div class="logo-sunburst" aria-hidden="true"></div>
-        <span class="logo-text">AURORA FEST '26</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-3">
-          <li class="nav-item">
-            <a class="nav-link nav-mono" href="#about">ABOUT</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-mono" href="#events">EVENTS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-mono" href="#contact">CONTACT</a>
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-card position-relative px-3 py-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#myEventsOffcanvas">
-              MY EVENTS <span id="myEventsBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent text-paper d-none">0</span>
-            </button>
-          </li>
+<!-- ── SCROLL PROGRESS BAR ──────────────────────────────────────── -->
+<div id="scrollBar" aria-hidden="true"></div>
 
-          <li class="nav-item">
-            <a class="btn btn-ink px-3 py-2" href="#events">BROWSE EVENTS</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<!-- ── CURSOR DOT (desktop only) ────────────────────────────────── -->
+<div id="cursorDot" aria-hidden="true"></div>
 
-  <!-- HERO POSTER -->
-  <header class="hero d-flex align-items-center">
-    <div class="container position-relative">
-      <div class="row align-items-center">
-        <!-- Left Text -->
-        <div class="col-lg-6 hero-text-col">
-          <div class="hero-tags mb-3 d-flex gap-2 flex-wrap">
-            <span class="hero-tag">NORTHLIGHT INSTITUTE</span>
-            <span class="hero-tag tag-accent">OCT 24-NOV 02</span>
-          </div>
-          <h1 class="hero-title">
-            AURORA<br>
-            FEST <span class="highlight-sun">'26</span>
-          </h1>
-          <p class="hero-tagline mt-4">
-            Ten days. Forty events. Zero excuses to stay in your hostel room. The biggest student-run festival in the district.
-          </p>
-          <div class="d-flex gap-3 mt-4 flex-wrap">
-            <a href="#events" class="btn btn-accent btn-lg">GET TICKETS</a>
-            <a href="#about" class="btn btn-paper btn-lg">WHAT'S THE FUSS?</a>
-          </div>
-        </div>
-        <!-- Right Graphic -->
-        <div class="col-lg-6 hero-graphic-col d-none d-lg-flex justify-content-center">
-          <div class="hero-ticket-graphic" aria-hidden="true">
-            <div class="ticket-header">ADMIT ONE</div>
-            <div class="ticket-body">
-              <div class="ticket-event">AURORA FEST</div>
-              <div class="ticket-meta">ROW A / SEAT 14</div>
-              <div class="ticket-barcode">|| |||| | ||||| | ||</div>
-            </div>
-            <div class="ticket-sticker">LFG!</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- TICKER -->
-  <div class="ticker-wrap border-ink-bottom border-ink-top bg-ink text-paper" aria-hidden="true">
-    <div class="ticker">
-      <span>NO REFUNDS</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
-      <span>LOUD MUSIC</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
-      <span>BRING YOUR ID</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
-      <span>LIMITED SEATS</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
-      <span>FREE ENERGY DRINKS</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
-      <span>NO REFUNDS</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
-      <span>LOUD MUSIC</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
-      <span>BRING YOUR ID</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
-      <span>LIMITED SEATS</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
-      <span>FREE ENERGY DRINKS</span> <i class="fa-solid fa-asterisk mx-3 text-sun"></i>
+<!-- ═══════════════ NAVBAR ══════════════════════════════════════ -->
+<nav class="navbar navbar-expand-lg sticky-top border-ink-bottom bg-paper">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <div class="logo-sunburst" aria-hidden="true"></div>
+      <span class="logo-text">AURORA FEST '26</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-3">
+        <li class="nav-item"><a class="nav-link nav-mono" href="#about">ABOUT</a></li>
+        <li class="nav-item"><a class="nav-link nav-mono" href="#events">EVENTS</a></li>
+        <li class="nav-item"><a class="nav-link nav-mono" href="#contact">CONTACT</a></li>
+        <li class="nav-item">
+          <button class="btn btn-card position-relative px-3 py-2" type="button"
+            data-bs-toggle="offcanvas" data-bs-target="#myEventsOffcanvas">
+            MY EVENTS
+            <span id="myEventsBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent text-paper d-none">0</span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-ink px-3 py-2" href="#events">BROWSE EVENTS <i class="fa-solid fa-arrow-right ms-1 arrow-nudge"></i></a>
+        </li>
+      </ul>
     </div>
   </div>
+</nav>
 
-  <!-- ABOUT -->
-  <section id="about" class="about-section py-5 bg-paper border-ink-bottom">
-    <div class="container py-4">
-      <div class="row text-center mb-5">
-        <div class="col-12">
-          <h2 class="section-title">WHAT'S THE FUSS?</h2>
-          <p class="section-subtitle mx-auto">Aurora Fest '26 is Northlight's annual celebration of tech, culture, and sleep deprivation. Come make some noise.</p>
+<!-- ═══════════════ HERO ═════════════════════════════════════════ -->
+<header class="hero d-flex align-items-center">
+  <div class="container position-relative">
+    <div class="row align-items-center">
+
+      <!-- Left Text -->
+      <div class="col-lg-6 hero-text-col">
+        <!-- Tags -->
+        <div class="hero-tags mb-3 d-flex gap-2 flex-wrap reveal-up" style="--delay:0ms">
+          <span class="hero-tag">NORTHLIGHT INSTITUTE</span>
+          <span class="hero-tag tag-accent">OCT 24 – NOV 2</span>
         </div>
-      </div>
-      <div class="row g-4 justify-content-center align-items-stretch">
-        <div class="col-md-4">
-          <div class="stat-box rot-left bg-accent">
-            <div class="stat-num">40+</div>
-            <div class="stat-label">LIVE EVENTS</div>
+
+        <!-- Title -->
+        <h1 class="hero-title reveal-up" style="--delay:80ms">
+          AURORA<br>FEST <span class="highlight-sun">'26</span>
+        </h1>
+
+        <!-- Date Tile Row -->
+        <div class="hero-date-tiles d-flex flex-wrap align-items-center gap-2 mt-3 reveal-up" style="--delay:160ms" aria-label="Festival dates">
+          <div class="date-tile">24</div>
+          <div class="date-tile-sep">—</div>
+          <div class="date-tile">02</div>
+          <div class="date-tile-label">
+            <span>OCT – NOV 2026</span>
+            <span>NORTHLIGHT</span>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="stat-box bg-sun">
-            <div class="stat-num">10k</div>
-            <div class="stat-label">FOOTFALL</div>
+
+        <!-- Tagline -->
+        <p class="hero-tagline mt-4 reveal-up" style="--delay:240ms">
+          Ten days. Forty events. Zero excuses to stay in your hostel room.
+          The biggest student-run festival in the district.
+        </p>
+
+        <!-- Buttons -->
+        <div class="d-flex gap-3 mt-4 flex-wrap reveal-up" style="--delay:320ms">
+          <a href="#events" class="btn btn-accent btn-lg">GET TICKETS <i class="fa-solid fa-arrow-right ms-1 arrow-nudge"></i></a>
+          <a href="#about"  class="btn btn-paper btn-lg">WHAT'S THE FUSS?</a>
+        </div>
+      </div>
+
+      <!-- Right – Lanyard Badge -->
+      <div class="col-lg-6 hero-graphic-col d-none d-lg-flex justify-content-center align-items-start pt-5">
+
+        <!-- Background shapes -->
+        <div class="badge-bg-circle" aria-hidden="true"></div>
+        <div class="badge-bg-dot"    aria-hidden="true"></div>
+
+        <div class="lanyard-wrap" aria-hidden="true">
+          <!-- Strap -->
+          <div class="lanyard-strap">
+            <div class="lanyard-strap-text">AURORA * FEST * 26 * AURORA * FEST * 26 * AURORA * FEST * 26 *</div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="stat-box rot-right bg-accent-2 text-paper">
-            <div class="stat-num">72hr</div>
-            <div class="stat-label">NO SLEEP</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+          <!-- Clip -->
+          <div class="lanyard-clip"></div>
 
-  <!-- EVENTS SECTION -->
-  <section id="events" class="events-section py-5 bg-card">
-    <div class="container py-4">
-      <div class="row mb-5 align-items-center">
-        <div class="col-md-6 mb-4 mb-md-0">
-          <h2 class="section-title">THE LINEUP</h2>
-        </div>
-        <div class="col-md-6 text-md-end">
-          <div class="search-wrapper position-relative d-inline-block w-100" style="max-width: 300px;">
-            <i class="fa-solid fa-search position-absolute top-50 translate-middle-y text-ink" style="left: 1rem;"></i>
-            <input type="text" id="searchInput" class="form-control form-control-lg search-input ps-5" placeholder="Find events...">
-          </div>
-        </div>
-      </div>
+          <!-- Badge card -->
+          <div class="lanyard-badge">
+            <div class="badge-inner">
+              <p class="badge-hello">HELLO, I'M A</p>
+              <p class="badge-role">STUDENT</p>
 
-      <!-- Result Count & Sort -->
-      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-        <div id="resultCount" class="font-mono fw-bold">Showing 8 of 8 events</div>
-        <select id="sortSelect" class="form-select form-select-sm font-mono w-auto border-ink shadow-hard">
-          <option value="date">Sort by: Date</option>
-          <option value="name">Sort by: Name</option>
-          <option value="seats">Sort by: Seats Left</option>
-        </select>
-      </div>
+              <div class="badge-clock-box">
+                <span class="badge-clock-label">10 DAYS TO GO</span>
+                <span id="lanyardClock" class="badge-clock-time">00:00:00</span>
+              </div>
 
-      <!-- Filters -->
-      <div class="filters-container mb-5 d-flex flex-wrap gap-2 justify-content-start" role="group" aria-label="Event category filter">
-        <input type="radio" class="btn-check" name="catFilter" id="catAll" value="All" autocomplete="off" checked>
-        <label class="btn btn-filter" for="catAll">ALL EVENTS</label>
-      
-        <input type="radio" class="btn-check" name="catFilter" id="catTech" value="Technical" autocomplete="off">
-        <label class="btn btn-filter" for="catTech">TECHNICAL</label>
-      
-        <input type="radio" class="btn-check" name="catFilter" id="catCult" value="Cultural" autocomplete="off">
-        <label class="btn btn-filter" for="catCult">CULTURAL</label>
-      
-        <input type="radio" class="btn-check" name="catFilter" id="catSports" value="Sports" autocomplete="off">
-        <label class="btn btn-filter" for="catSports">SPORTS</label>
-      
-        <input type="radio" class="btn-check" name="catFilter" id="catWorkshop" value="Workshop" autocomplete="off">
-        <label class="btn btn-filter" for="catWorkshop">WORKSHOPS</label>
-      </div>
-
-      <!-- Grid -->
-      <div id="eventGrid" class="row g-4" aria-live="polite">
-        <!-- Rendered by JS -->
-      </div>
-
-      <!-- Empty State -->
-      <div id="emptyState" class="text-center py-5 d-none">
-        <div class="empty-icon text-muted mb-3"><i class="fa-solid fa-ghost fa-3x"></i></div>
-        <h3 class="font-head text-ink">NOTHING FOUND</h3>
-        <p class="font-body text-muted mx-auto" style="max-width: 400px;">We searched every corner of the campus, but couldn't find an event matching your criteria.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer id="contact" class="footer bg-ink text-paper border-ink-top py-5 overflow-hidden">
-    <div class="container position-relative z-1">
-      <div class="row g-4 border-paper-bottom pb-4 mb-4">
-        <div class="col-md-6">
-          <h4 class="footer-head text-sun">GET IN TOUCH</h4>
-          <ul class="list-unstyled footer-contact font-mono">
-            <li><i class="fa-solid fa-location-dot me-2"></i>Northlight Institute of Technology, NH-12</li>
-            <li><i class="fa-solid fa-envelope me-2"></i>hello@aurorafest26.edu</li>
-            <li><i class="fa-solid fa-phone me-2"></i>+91 98765 43210</li>
-          </ul>
-        </div>
-        <div class="col-md-6 text-md-end">
-          <h4 class="footer-head text-accent">STALK US</h4>
-          <div class="social-links d-flex gap-3 justify-content-md-end mt-3">
-            <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="social-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="#" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 text-center text-md-start">
-          <p class="font-mono text-muted mb-0 small">&copy; 2026 Northlight Event Hub. Designed by the Student Council.</p>
-        </div>
-      </div>
-    </div>
-    <!-- Giant wordmark -->
-    <div class="footer-wordmark" aria-hidden="true">AURORA</div>
-  </footer>
-
-  <!-- REGISTRATION MODAL -->
-  <div class="modal fade" id="regModal" tabindex="-1" aria-labelledby="regModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content riso-modal">
-        <div class="modal-header border-ink-bottom bg-sun text-ink">
-          <h2 class="modal-title font-head fs-4 m-0" id="regModalTitle">SECURE YOUR SPOT</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-4 bg-paper">
-          <p class="font-mono mb-4 text-ink fw-bold">EVENT: <span id="regModalEventName" class="text-accent-2"></span></p>
-          
-          <form id="regForm" novalidate>
-            <div class="mb-3">
-              <label for="regName" class="form-label font-mono fw-bold">FULL NAME</label>
-              <input type="text" class="form-control reg-input" id="regName" required placeholder="e.g. Priya Nair">
-              <div class="invalid-feedback font-mono" id="regNameFeedback"></div>
+              <div class="badge-barcode">||| || |||| | ||||| || |||</div>
+              <p class="badge-number">NIT-2026-4200</p>
             </div>
-            
-            <div class="mb-3">
-              <label for="regEmail" class="form-label font-mono fw-bold">STUDENT EMAIL</label>
-              <input type="email" class="form-control reg-input" id="regEmail" required placeholder="you@college.edu">
-              <div class="invalid-feedback font-mono" id="regEmailFeedback"></div>
-            </div>
-            
-            <div class="mb-4">
-              <label for="regPhone" class="form-label font-mono fw-bold">PHONE NUMBER</label>
-              <input type="tel" class="form-control reg-input" id="regPhone" required placeholder="10-digit mobile number">
-              <div class="invalid-feedback font-mono" id="regPhoneFeedback"></div>
-            </div>
-            
-            <button type="submit" class="btn btn-ink w-100 py-3">CONFIRM REGISTRATION</button>
-          </form>
+
+            <!-- Stickers -->
+            <div class="badge-sticker-early">EARLY<br>BIRD</div>
+            <div class="badge-sticker-lfg">LFG!</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</header>
 
-  <!-- MY EVENTS OFFCANVAS -->
-  <div class="offcanvas offcanvas-end riso-modal" tabindex="-1" id="myEventsOffcanvas" aria-labelledby="myEventsTitle">
-    <div class="offcanvas-header border-ink-bottom bg-sun text-ink">
-      <h5 class="offcanvas-title font-head fs-4 m-0" id="myEventsTitle">MY EVENTS</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body bg-paper" id="myEventsBody">
+<!-- ═══════════════ TICKER RIBBON ════════════════════════════════ -->
+<div class="ticker-wrap border-ink-bottom border-ink-top bg-ink text-paper" aria-hidden="true">
+  <div class="ticker">
+    <span>NO REFUNDS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>LOUD MUSIC</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>BRING YOUR ID</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>OCT 24 – NOV 2</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>40 EVENTS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>6 CATEGORIES</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>FREE ENERGY DRINKS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>LIMITED SEATS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>NO REFUNDS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>LOUD MUSIC</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>BRING YOUR ID</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>OCT 24 – NOV 2</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>40 EVENTS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>6 CATEGORIES</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>FREE ENERGY DRINKS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>LIMITED SEATS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+  </div>
+</div>
+
+<!-- ═══════════════ COUNTDOWN ════════════════════════════════════ -->
+<section id="countdown" class="countdown-section">
+  <div class="container py-5">
+    <h2 class="countdown-heading reveal-up" style="--delay:0ms">DOORS OPEN IN</h2>
+    <div id="countdownDisplay" class="countdown-tiles d-flex flex-wrap justify-content-center gap-3 mt-4" aria-live="polite">
       <!-- Rendered by JS -->
     </div>
+    <p class="countdown-subline reveal-up" style="--delay:100ms">Early-bird seats vanish fast.</p>
+    <a href="#events" class="btn btn-accent btn-lg mt-2 reveal-up" style="--delay:180ms">
+      REGISTER NOW <i class="fa-solid fa-arrow-right ms-2 arrow-nudge"></i>
+    </a>
   </div>
+</section>
 
-  <!-- TOAST NOTIFICATION -->
-  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
-    <div id="sysToast" class="toast riso-modal bg-paper" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header border-ink-bottom bg-sun text-ink">
-        <strong class="me-auto font-mono" id="toastTitle">NOTIFICATION</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+<!-- ═══════════════ ABOUT / WHAT'S THE FUSS ═══════════════════════ -->
+<section id="about" class="about-section py-5 bg-paper border-ink-bottom">
+  <div class="container py-4">
+    <div class="row text-center mb-5 reveal-up" style="--delay:0ms">
+      <div class="col-12">
+        <h2 class="section-title">WHAT'S THE FUSS?</h2>
+        <p class="section-subtitle mx-auto">Aurora Fest '26 is Northlight's annual celebration of tech, culture, and sleep deprivation. Come make some noise.</p>
       </div>
-      <div class="toast-body font-mono fw-bold" id="toastMsg"></div>
     </div>
-  </div>
-
-  <!-- SUCCESS MODAL -->
-  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content riso-modal text-center">
-        <div class="modal-body p-5 bg-paper">
-          <div class="success-icon text-accent mb-4">
-            <i class="fa-solid fa-certificate fa-4x"></i>
-          </div>
-          <h2 class="modal-title font-head mb-3" id="successModalTitle">YOU'RE IN!</h2>
-          <p id="successMsg" class="font-body fs-5 text-ink mb-4"></p>
-          <button type="button" class="btn btn-accent w-100 py-2" data-bs-dismiss="modal">AWESOME</button>
+    <div class="row g-4 justify-content-center align-items-stretch">
+      <div class="col-md-4 reveal-up" style="--delay:0ms">
+        <div class="stat-box rot-left bg-accent">
+          <div class="stat-num">40+</div>
+          <div class="stat-label">LIVE EVENTS</div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal-up" style="--delay:80ms">
+        <div class="stat-box bg-sun">
+          <div class="stat-num">10k</div>
+          <div class="stat-label">FOOTFALL</div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal-up" style="--delay:160ms">
+        <div class="stat-box rot-right bg-accent-2 text-paper">
+          <div class="stat-num">72hr</div>
+          <div class="stat-label">NO SLEEP</div>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- THEME TOGGLE FLOATING BUTTON -->
-  <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
-    <i class="fa-solid fa-moon"></i>
-  </button>
+<!-- ═══════════════ BIG-NUMBER STATS ════════════════════════════ -->
+<section class="bignumber-section bg-paper border-ink-bottom py-5">
+  <div class="container py-4">
+    <!-- Giant number + text -->
+    <div class="row align-items-center mb-5 reveal-up" style="--delay:0ms">
+      <div class="col-auto">
+        <div class="bignumber-num text-accent count-up" data-target="40">0</div>
+      </div>
+      <div class="col">
+        <h2 class="bignumber-label">EVENTS THAT<br>SLAP.</h2>
+        <p class="font-body text-muted">From hackathons to pottery wheels, from cage football to a battle of bands — Aurora Fest '26 has something for every type of unhinged student.</p>
+      </div>
+    </div>
+    <!-- Stat strip -->
+    <div class="row g-3">
+      <div class="col-md-4 reveal-up" style="--delay:0ms">
+        <div class="stat-strip border-ink bg-card">
+          <div class="stat-strip-num count-up" data-target="6">0</div>
+          <div class="stat-strip-label">CATEGORIES</div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal-up" style="--delay:80ms">
+        <div class="stat-strip border-ink bg-sun">
+          <div class="stat-strip-num count-up" data-target="1800">0</div>
+          <div class="stat-strip-label">STUDENTS</div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal-up" style="--delay:160ms">
+        <div class="stat-strip border-ink bg-accent text-paper">
+          <div class="stat-strip-num count-up" data-target="10">0</div>
+          <div class="stat-strip-label">DAYS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  <!-- Custom JS -->
-  <script src="script.js"></script>
+<!-- ═══════════════ HEADLINERS ═══════════════════════════════════ -->
+<section class="headliners-section bg-card border-ink-bottom py-5">
+  <div class="container py-4">
+    <h2 class="section-title mb-5 reveal-up" style="--delay:0ms">FEATURED HEADLINERS</h2>
+
+    <!-- SVG avatar symbol (shared, hidden) -->
+    <svg style="display:none" aria-hidden="true">
+      <symbol id="avatar-sym" viewBox="0 0 120 140">
+        <!-- halo -->
+        <circle class="av-halo" cx="60" cy="52" r="46" fill="none" stroke-width="3"/>
+        <!-- head -->
+        <ellipse cx="60" cy="48" rx="24" ry="27" class="av-head"/>
+        <!-- hair -->
+        <path d="M36 40 Q60 8 84 40" class="av-hair" fill="none" stroke-width="5" stroke-linecap="round"/>
+        <!-- smile -->
+        <path d="M50 56 Q60 65 70 56" class="av-smile" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- shoulders -->
+        <path d="M28 110 Q28 82 60 78 Q92 82 92 110" class="av-body"/>
+      </symbol>
+    </svg>
+
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-sm-6 col-lg-3 reveal-up" style="--delay:0ms">
+        <div class="headliner-card bg-accent text-paper" tabindex="0">
+          <div class="headliner-avatar">
+            <svg viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#avatar-sym" class="av-scheme-accent"/>
+            </svg>
+          </div>
+          <span class="headliner-pill">KEYNOTE</span>
+          <h3 class="headliner-name">ANANYA RAO</h3>
+          <p class="headliner-role font-mono">Co-founder, NullPtr Labs</p>
+          <p class="headliner-bio font-body">Building compilers for fun and somehow also profit.</p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="col-sm-6 col-lg-3 reveal-up" style="--delay:80ms">
+        <div class="headliner-card bg-sun text-ink" tabindex="0">
+          <div class="headliner-avatar">
+            <svg viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#avatar-sym" class="av-scheme-sun"/>
+            </svg>
+          </div>
+          <span class="headliner-pill pill-ink">WORKSHOP</span>
+          <h3 class="headliner-name">FARHAN SHEIKH</h3>
+          <p class="headliner-role font-mono">Design Lead, StudioBlob</p>
+          <p class="headliner-bio font-body">Teaching figma to people who still open Canva.</p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="col-sm-6 col-lg-3 reveal-up" style="--delay:160ms">
+        <div class="headliner-card bg-accent-2 text-paper" tabindex="0">
+          <div class="headliner-avatar">
+            <svg viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#avatar-sym" class="av-scheme-accent-2"/>
+            </svg>
+          </div>
+          <span class="headliner-pill">KEYNOTE</span>
+          <h3 class="headliner-name">PRIYA MENON</h3>
+          <p class="headliner-role font-mono">SRE @ MegaStack Inc.</p>
+          <p class="headliner-bio font-body">She's paged at 3am so you don't have to be.</p>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="col-sm-6 col-lg-3 reveal-up" style="--delay:240ms">
+        <div class="headliner-card bg-card text-ink" tabindex="0">
+          <div class="headliner-avatar">
+            <svg viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#avatar-sym" class="av-scheme-paper"/>
+            </svg>
+          </div>
+          <span class="headliner-pill pill-accent">LOCAL HERO</span>
+          <h3 class="headliner-name">ROHAN PILLAI</h3>
+          <p class="headliner-role font-mono">Final-year, Northlight CSE</p>
+          <p class="headliner-bio font-body">Won CTF nationals from his hostel room. Twice.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ EVENTS SECTION ══════════════════════════════ -->
+<section id="events" class="events-section py-5 bg-card">
+  <div class="container py-4">
+    <div class="row mb-5 align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0 reveal-up" style="--delay:0ms">
+        <h2 class="section-title">THE LINEUP</h2>
+      </div>
+      <div class="col-md-6 text-md-end reveal-up" style="--delay:80ms">
+        <div class="search-wrapper position-relative d-inline-block w-100" style="max-width: 300px;">
+          <i class="fa-solid fa-search position-absolute top-50 translate-middle-y text-ink" style="left:1rem;"></i>
+          <input type="text" id="searchInput" class="form-control form-control-lg search-input ps-5" placeholder="Find events…">
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Count & Sort -->
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3 reveal-up" style="--delay:40ms">
+      <div id="resultCount" class="font-mono fw-bold">Showing 8 of 8 events</div>
+      <select id="sortSelect" class="form-select form-select-sm font-mono w-auto">
+        <option value="date">Sort by: Date</option>
+        <option value="name">Sort by: Name</option>
+        <option value="seats">Sort by: Seats Left</option>
+      </select>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-container mb-5 d-flex flex-wrap gap-2 justify-content-start" role="group" aria-label="Event category filter">
+      <input type="radio" class="btn-check" name="catFilter" id="catAll"      value="All"       autocomplete="off" checked>
+      <label class="btn btn-filter" for="catAll">ALL EVENTS</label>
+
+      <input type="radio" class="btn-check" name="catFilter" id="catTech"     value="Technical"  autocomplete="off">
+      <label class="btn btn-filter" for="catTech">TECHNICAL</label>
+
+      <input type="radio" class="btn-check" name="catFilter" id="catCult"     value="Cultural"   autocomplete="off">
+      <label class="btn btn-filter" for="catCult">CULTURAL</label>
+
+      <input type="radio" class="btn-check" name="catFilter" id="catSports"   value="Sports"     autocomplete="off">
+      <label class="btn btn-filter" for="catSports">SPORTS</label>
+
+      <input type="radio" class="btn-check" name="catFilter" id="catWorkshop" value="Workshop"   autocomplete="off">
+      <label class="btn btn-filter" for="catWorkshop">WORKSHOPS</label>
+    </div>
+
+    <!-- Grid -->
+    <div id="eventGrid" class="row g-4" aria-live="polite"></div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="text-center py-5 d-none">
+      <div class="empty-icon text-muted mb-3"><i class="fa-solid fa-ghost fa-3x"></i></div>
+      <h3 class="font-head text-ink">NOTHING FOUND</h3>
+      <p class="font-body text-muted mx-auto" style="max-width:400px;">We searched every corner of the campus, but couldn't find an event matching your criteria.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ════════════════════════════════════════ -->
+<footer id="contact" class="footer bg-ink text-paper border-ink-top py-5 overflow-hidden">
+  <div class="container position-relative z-1">
+    <div class="row g-4 border-paper-bottom pb-4 mb-4">
+      <div class="col-md-6">
+        <h4 class="footer-head text-sun">GET IN TOUCH</h4>
+        <ul class="list-unstyled footer-contact font-mono">
+          <li><i class="fa-solid fa-location-dot me-2"></i>Northlight Institute of Technology, NH-12</li>
+          <li><i class="fa-solid fa-envelope me-2"></i>hello@aurorafest26.edu</li>
+          <li><i class="fa-solid fa-phone me-2"></i>+91 98765 43210</li>
+        </ul>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <h4 class="footer-head text-accent">STALK US</h4>
+        <div class="social-links d-flex gap-3 justify-content-md-end mt-3">
+          <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center text-md-start">
+        <p class="font-mono text-muted mb-0 small">&copy; 2026 Northlight Event Hub. Designed by the Student Council.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-wordmark" aria-hidden="true">AURORA</div>
+</footer>
+
+<!-- ═══════════════ MY EVENTS OFFCANVAS ════════════════════════ -->
+<div class="offcanvas offcanvas-end riso-modal" tabindex="-1" id="myEventsOffcanvas" aria-labelledby="myEventsTitle">
+  <div class="offcanvas-header border-ink-bottom bg-sun text-ink">
+    <h5 class="offcanvas-title font-head fs-4 m-0" id="myEventsTitle">MY EVENTS</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body bg-paper" id="myEventsBody"></div>
+</div>
+
+<!-- ═══════════════ TOAST ════════════════════════════════════════ -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:1100">
+  <div id="sysToast" class="toast riso-modal bg-paper" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header border-ink-bottom bg-sun text-ink">
+      <strong class="me-auto font-mono" id="toastTitle">NOTIFICATION</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body font-mono fw-bold" id="toastMsg"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ REGISTRATION MODAL ══════════════════════════ -->
+<div class="modal fade" id="regModal" tabindex="-1" aria-labelledby="regModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content riso-modal">
+      <div class="modal-header border-ink-bottom bg-sun text-ink">
+        <h2 class="modal-title font-head fs-4 m-0" id="regModalTitle">SECURE YOUR SPOT</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4 bg-paper">
+        <p class="font-mono mb-4 text-ink fw-bold">EVENT: <span id="regModalEventName" class="text-accent-2"></span></p>
+        <form id="regForm" novalidate>
+          <div class="mb-3">
+            <label for="regName" class="form-label font-mono fw-bold">FULL NAME</label>
+            <input type="text" class="form-control reg-input" id="regName" required placeholder="e.g. Priya Nair">
+            <div class="invalid-feedback font-mono" id="regNameFeedback"></div>
+          </div>
+          <div class="mb-3">
+            <label for="regEmail" class="form-label font-mono fw-bold">STUDENT EMAIL</label>
+            <input type="email" class="form-control reg-input" id="regEmail" required placeholder="you@college.edu">
+            <div class="invalid-feedback font-mono" id="regEmailFeedback"></div>
+          </div>
+          <div class="mb-4">
+            <label for="regPhone" class="form-label font-mono fw-bold">PHONE NUMBER</label>
+            <input type="tel" class="form-control reg-input" id="regPhone" required placeholder="10-digit mobile number">
+            <div class="invalid-feedback font-mono" id="regPhoneFeedback"></div>
+          </div>
+          <button type="submit" class="btn btn-ink w-100 py-3">CONFIRM REGISTRATION</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SUCCESS MODAL ════════════════════════════════ -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content riso-modal text-center">
+      <div class="modal-body p-5 bg-paper">
+        <div class="success-icon text-accent mb-4">
+          <i class="fa-solid fa-certificate fa-4x" id="successStamp"></i>
+        </div>
+        <h2 class="modal-title font-head mb-3" id="successModalTitle">YOU'RE IN!</h2>
+        <p id="successMsg" class="font-body fs-5 text-ink mb-4"></p>
+        <button type="button" class="btn btn-accent w-100 py-2" data-bs-dismiss="modal">AWESOME</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ THEME TOGGLE FLOATING BUTTON ════════════════ -->
+<button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+  <i class="fa-solid fa-moon"></i>
+</button>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<!-- Custom JS -->
+<script src="script.js"></script>
 </body>
 </html>
