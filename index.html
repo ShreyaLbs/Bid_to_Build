@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aurora Fest '26 - Northlight Institute of Technology. 40 events, 10 days, 6 categories. Join the celebration of tech, culture, and sleep deprivation.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23ff4b2b'/></svg>">
   <title>Aurora Fest '26 | Northlight Institute of Technology</title>
 
   <!-- Bootstrap CSS -->
@@ -20,6 +22,34 @@
   </script>
 </head>
 <body>
+
+<!-- ═══════════════ INTRO SPLASH OVERLAY ════════════════════════ -->
+<div id="intro" role="presentation" aria-hidden="true">
+  <!-- Wipe Panels -->
+  <div class="intro-panel intro-panel-cream bg-paper"></div>
+  <div class="intro-panel intro-panel-yellow bg-sun"></div>
+  <div class="intro-panel intro-panel-red bg-accent"></div>
+  
+  <!-- Main dark panel -->
+  <div class="intro-panel intro-panel-main">
+    <div class="logo-sunburst intro-logo"></div>
+    
+    <div class="intro-wordmark" id="introWordmark">
+      <!-- Built by JS -->
+    </div>
+    
+    <div class="intro-sticker">
+      <div class="intro-sticker-line bg-accent text-paper">OCT 24 - NOV 2</div>
+      <div class="intro-sticker-line bg-sun text-ink" style="transform: translateX(-5%) rotate(2deg);">NORTHLIGHT</div>
+      <div class="intro-sticker-line bg-accent-2 text-paper" style="transform: translateX(5%) rotate(-3deg);">TICKETS</div>
+    </div>
+    
+    <div class="intro-dot"></div>
+    <div class="intro-sparks" id="introSparks"></div>
+    
+    <button id="introSkip" class="intro-skip">SKIP</button>
+  </div>
+</div>
 
 <!-- ── SCROLL PROGRESS BAR ──────────────────────────────────────── -->
 <div id="scrollBar" aria-hidden="true"></div>
@@ -42,16 +72,17 @@
       <ul class="navbar-nav ms-auto align-items-lg-center gap-3">
         <li class="nav-item"><a class="nav-link nav-mono" href="#about">ABOUT</a></li>
         <li class="nav-item"><a class="nav-link nav-mono" href="#events">EVENTS</a></li>
+        <li class="nav-item"><a class="nav-link nav-mono" href="#gallery">GALLERY</a></li>
         <li class="nav-item"><a class="nav-link nav-mono" href="#contact">CONTACT</a></li>
         <li class="nav-item">
           <button class="btn btn-card position-relative px-3 py-2" type="button"
             data-bs-toggle="offcanvas" data-bs-target="#myEventsOffcanvas">
-            MY EVENTS
+            <i class="fa-solid fa-ticket me-2" aria-hidden="true"></i> MY EVENTS
             <span id="myEventsBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent text-paper d-none">0</span>
           </button>
         </li>
         <li class="nav-item">
-          <a class="btn btn-ink px-3 py-2" href="#events">BROWSE EVENTS <i class="fa-solid fa-arrow-right ms-1 arrow-nudge"></i></a>
+          <a class="btn btn-ink px-3 py-2" href="#events">BROWSE EVENTS <i class="fa-solid fa-arrow-right ms-1 arrow-nudge" aria-hidden="true"></i></a>
         </li>
       </ul>
     </div>
@@ -59,7 +90,7 @@
 </nav>
 
 <!-- ═══════════════ HERO ═════════════════════════════════════════ -->
-<header class="hero d-flex align-items-center">
+<header class="hero d-flex align-items-center bg-paper">
   <div class="container position-relative">
     <div class="row align-items-center">
 
@@ -95,14 +126,13 @@
 
         <!-- Buttons -->
         <div class="d-flex gap-3 mt-4 flex-wrap reveal-up" style="--delay:320ms">
-          <a href="#events" class="btn btn-accent btn-lg">GET TICKETS <i class="fa-solid fa-arrow-right ms-1 arrow-nudge"></i></a>
+          <a href="#events" class="btn btn-accent btn-lg">GET TICKETS <i class="fa-solid fa-arrow-right ms-1 arrow-nudge" aria-hidden="true"></i></a>
           <a href="#about"  class="btn btn-paper btn-lg">WHAT'S THE FUSS?</a>
         </div>
       </div>
 
       <!-- Right – Lanyard Badge -->
       <div class="col-lg-6 hero-graphic-col d-none d-lg-flex justify-content-center align-items-start pt-5">
-
         <!-- Background shapes -->
         <div class="badge-bg-circle" aria-hidden="true"></div>
         <div class="badge-bg-dot"    aria-hidden="true"></div>
@@ -114,22 +144,18 @@
           </div>
           <!-- Clip -->
           <div class="lanyard-clip"></div>
-
           <!-- Badge card -->
           <div class="lanyard-badge">
             <div class="badge-inner">
               <p class="badge-hello">HELLO, I'M A</p>
               <p class="badge-role">STUDENT</p>
-
               <div class="badge-clock-box">
                 <span class="badge-clock-label">10 DAYS TO GO</span>
                 <span id="lanyardClock" class="badge-clock-time">00:00:00</span>
               </div>
-
               <div class="badge-barcode">||| || |||| | ||||| || |||</div>
               <p class="badge-number">NIT-2026-4200</p>
             </div>
-
             <!-- Stickers -->
             <div class="badge-sticker-early">EARLY<br>BIRD</div>
             <div class="badge-sticker-lfg">LFG!</div>
@@ -143,22 +169,14 @@
 <!-- ═══════════════ TICKER RIBBON ════════════════════════════════ -->
 <div class="ticker-wrap border-ink-bottom border-ink-top bg-ink text-paper" aria-hidden="true">
   <div class="ticker">
-    <span>NO REFUNDS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>LOUD MUSIC</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>BRING YOUR ID</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>OCT 24 – NOV 2</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>40 EVENTS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>6 CATEGORIES</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>FREE ENERGY DRINKS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>LIMITED SEATS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>NO REFUNDS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>LOUD MUSIC</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>BRING YOUR ID</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>OCT 24 – NOV 2</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>40 EVENTS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>6 CATEGORIES</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>FREE ENERGY DRINKS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
-    <span>LIMITED SEATS</span> <i class="fa-solid fa-star mx-3 text-sun"></i>
+    <span>NO REFUNDS</span> <i class="fa-solid fa-star mx-3 text-sun" aria-hidden="true"></i>
+    <span>LOUD MUSIC</span> <i class="fa-solid fa-star mx-3 text-sun" aria-hidden="true"></i>
+    <span>BRING YOUR ID</span> <i class="fa-solid fa-star mx-3 text-sun" aria-hidden="true"></i>
+    <span>OCT 24 – NOV 2</span> <i class="fa-solid fa-star mx-3 text-sun" aria-hidden="true"></i>
+    <span>40 EVENTS</span> <i class="fa-solid fa-star mx-3 text-sun" aria-hidden="true"></i>
+    <span>6 CATEGORIES</span> <i class="fa-solid fa-star mx-3 text-sun" aria-hidden="true"></i>
+    <span>FREE ENERGY DRINKS</span> <i class="fa-solid fa-star mx-3 text-sun" aria-hidden="true"></i>
+    <span>LIMITED SEATS</span> <i class="fa-solid fa-star mx-3 text-sun" aria-hidden="true"></i>
   </div>
 </div>
 
@@ -171,7 +189,7 @@
     </div>
     <p class="countdown-subline reveal-up" style="--delay:100ms">Early-bird seats vanish fast.</p>
     <a href="#events" class="btn btn-accent btn-lg mt-2 reveal-up" style="--delay:180ms">
-      REGISTER NOW <i class="fa-solid fa-arrow-right ms-2 arrow-nudge"></i>
+      REGISTER NOW <i class="fa-solid fa-arrow-right ms-2 arrow-nudge" aria-hidden="true"></i>
     </a>
   </div>
 </section>
@@ -181,7 +199,7 @@
   <div class="container py-4">
     <div class="row text-center mb-5 reveal-up" style="--delay:0ms">
       <div class="col-12">
-        <h2 class="section-title">WHAT'S THE FUSS?</h2>
+        <h2 class="section-title">WHAT'S THE <span class="text-accent">FUSS?</span></h2>
         <p class="section-subtitle mx-auto">Aurora Fest '26 is Northlight's annual celebration of tech, culture, and sleep deprivation. Come make some noise.</p>
       </div>
     </div>
@@ -209,7 +227,7 @@
 </section>
 
 <!-- ═══════════════ BIG-NUMBER STATS ════════════════════════════ -->
-<section class="bignumber-section bg-paper border-ink-bottom py-5">
+<section class="bg-paper border-ink-bottom py-5">
   <div class="container py-4">
     <!-- Giant number + text -->
     <div class="row align-items-center mb-5 reveal-up" style="--delay:0ms">
@@ -217,7 +235,7 @@
         <div class="bignumber-num text-accent count-up" data-target="40">0</div>
       </div>
       <div class="col">
-        <h2 class="bignumber-label">EVENTS THAT<br>SLAP.</h2>
+        <h2 class="bignumber-label"><span class="text-ink">EVENTS</span><br><span class="text-accent">THAT SLAP.</span></h2>
         <p class="font-body text-muted">From hackathons to pottery wheels, from cage football to a battle of bands — Aurora Fest '26 has something for every type of unhinged student.</p>
       </div>
     </div>
@@ -246,9 +264,9 @@
 </section>
 
 <!-- ═══════════════ HEADLINERS ═══════════════════════════════════ -->
-<section class="headliners-section bg-card border-ink-bottom py-5">
+<section class="bg-card border-ink-bottom py-5">
   <div class="container py-4">
-    <h2 class="section-title mb-5 reveal-up" style="--delay:0ms">FEATURED HEADLINERS</h2>
+    <h2 class="section-title mb-5 reveal-up" style="--delay:0ms">FEATURED <span class="text-accent-2">HEADLINERS</span></h2>
 
     <!-- SVG avatar symbol (shared, hidden) -->
     <svg style="display:none" aria-hidden="true">
@@ -267,13 +285,10 @@
     </svg>
 
     <div class="row g-4">
-      <!-- Card 1 -->
       <div class="col-sm-6 col-lg-3 reveal-up" style="--delay:0ms">
         <div class="headliner-card bg-accent text-paper" tabindex="0">
           <div class="headliner-avatar">
-            <svg viewBox="0 0 120 140" aria-hidden="true">
-              <use href="#avatar-sym" class="av-scheme-accent"/>
-            </svg>
+            <svg viewBox="0 0 120 140" aria-hidden="true"><use href="#avatar-sym" class="av-scheme-accent"/></svg>
           </div>
           <span class="headliner-pill">KEYNOTE</span>
           <h3 class="headliner-name">ANANYA RAO</h3>
@@ -281,13 +296,10 @@
           <p class="headliner-bio font-body">Building compilers for fun and somehow also profit.</p>
         </div>
       </div>
-      <!-- Card 2 -->
       <div class="col-sm-6 col-lg-3 reveal-up" style="--delay:80ms">
         <div class="headliner-card bg-sun text-ink" tabindex="0">
           <div class="headliner-avatar">
-            <svg viewBox="0 0 120 140" aria-hidden="true">
-              <use href="#avatar-sym" class="av-scheme-sun"/>
-            </svg>
+            <svg viewBox="0 0 120 140" aria-hidden="true"><use href="#avatar-sym" class="av-scheme-sun"/></svg>
           </div>
           <span class="headliner-pill pill-ink">WORKSHOP</span>
           <h3 class="headliner-name">FARHAN SHEIKH</h3>
@@ -295,13 +307,10 @@
           <p class="headliner-bio font-body">Teaching figma to people who still open Canva.</p>
         </div>
       </div>
-      <!-- Card 3 -->
       <div class="col-sm-6 col-lg-3 reveal-up" style="--delay:160ms">
         <div class="headliner-card bg-accent-2 text-paper" tabindex="0">
           <div class="headliner-avatar">
-            <svg viewBox="0 0 120 140" aria-hidden="true">
-              <use href="#avatar-sym" class="av-scheme-accent-2"/>
-            </svg>
+            <svg viewBox="0 0 120 140" aria-hidden="true"><use href="#avatar-sym" class="av-scheme-accent-2"/></svg>
           </div>
           <span class="headliner-pill">KEYNOTE</span>
           <h3 class="headliner-name">PRIYA MENON</h3>
@@ -309,13 +318,10 @@
           <p class="headliner-bio font-body">She's paged at 3am so you don't have to be.</p>
         </div>
       </div>
-      <!-- Card 4 -->
       <div class="col-sm-6 col-lg-3 reveal-up" style="--delay:240ms">
         <div class="headliner-card bg-card text-ink" tabindex="0">
           <div class="headliner-avatar">
-            <svg viewBox="0 0 120 140" aria-hidden="true">
-              <use href="#avatar-sym" class="av-scheme-paper"/>
-            </svg>
+            <svg viewBox="0 0 120 140" aria-hidden="true"><use href="#avatar-sym" class="av-scheme-paper"/></svg>
           </div>
           <span class="headliner-pill pill-accent">LOCAL HERO</span>
           <h3 class="headliner-name">ROHAN PILLAI</h3>
@@ -328,15 +334,15 @@
 </section>
 
 <!-- ═══════════════ EVENTS SECTION ══════════════════════════════ -->
-<section id="events" class="events-section py-5 bg-card">
+<section id="events" class="events-section py-5 bg-card border-ink-bottom">
   <div class="container py-4">
     <div class="row mb-5 align-items-center">
       <div class="col-md-6 mb-4 mb-md-0 reveal-up" style="--delay:0ms">
-        <h2 class="section-title">THE LINEUP</h2>
+        <h2 class="section-title">THE <span class="text-accent">LINEUP</span></h2>
       </div>
       <div class="col-md-6 text-md-end reveal-up" style="--delay:80ms">
         <div class="search-wrapper position-relative d-inline-block w-100" style="max-width: 300px;">
-          <i class="fa-solid fa-search position-absolute top-50 translate-middle-y text-ink" style="left:1rem;"></i>
+          <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y text-ink" style="left:1rem;" aria-hidden="true"></i>
           <input type="text" id="searchInput" class="form-control form-control-lg search-input ps-5" placeholder="Find events…">
         </div>
       </div>
@@ -356,16 +362,12 @@
     <div class="filters-container mb-5 d-flex flex-wrap gap-2 justify-content-start" role="group" aria-label="Event category filter">
       <input type="radio" class="btn-check" name="catFilter" id="catAll"      value="All"       autocomplete="off" checked>
       <label class="btn btn-filter" for="catAll">ALL EVENTS</label>
-
       <input type="radio" class="btn-check" name="catFilter" id="catTech"     value="Technical"  autocomplete="off">
       <label class="btn btn-filter" for="catTech">TECHNICAL</label>
-
       <input type="radio" class="btn-check" name="catFilter" id="catCult"     value="Cultural"   autocomplete="off">
       <label class="btn btn-filter" for="catCult">CULTURAL</label>
-
       <input type="radio" class="btn-check" name="catFilter" id="catSports"   value="Sports"     autocomplete="off">
       <label class="btn btn-filter" for="catSports">SPORTS</label>
-
       <input type="radio" class="btn-check" name="catFilter" id="catWorkshop" value="Workshop"   autocomplete="off">
       <label class="btn btn-filter" for="catWorkshop">WORKSHOPS</label>
     </div>
@@ -375,31 +377,134 @@
 
     <!-- Empty State -->
     <div id="emptyState" class="text-center py-5 d-none">
-      <div class="empty-icon text-muted mb-3"><i class="fa-solid fa-ghost fa-3x"></i></div>
+      <div class="empty-icon text-muted mb-3"><i class="fa-solid fa-ghost fa-3x" aria-hidden="true"></i></div>
       <h3 class="font-head text-ink">NOTHING FOUND</h3>
       <p class="font-body text-muted mx-auto" style="max-width:400px;">We searched every corner of the campus, but couldn't find an event matching your criteria.</p>
     </div>
   </div>
 </section>
 
+<!-- ═══════════════ GALLERY ══════════════════════════════════════ -->
+<section id="gallery" class="bg-ink text-paper border-ink-bottom">
+  <div class="container reveal-up" style="--delay:0ms;">
+    <div class="gallery-header-wrapper">
+      <h2 class="gallery-title mb-2">
+        <span class="title-fest">FEST</span> <span class="title-memories">MEMORIES.</span>
+      </h2>
+      <p class="gallery-subtitle font-mono mb-0">Drag, swipe or use the arrows.</p>
+    </div>
+  </div>
+  <div class="gallery-stage reveal-up" style="--delay:100ms">
+    <div id="galleryRing" class="gallery-ring">
+      <!-- JS populates this -->
+    </div>
+    <div class="gallery-shadow-ellipse"></div>
+  </div>
+  <div class="gallery-controls reveal-up" style="--delay:200ms">
+    <button id="galPrev" class="gallery-arrow" aria-label="Previous image"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+    <div id="galCounter" class="gallery-counter font-mono fw-bold">01 / 08</div>
+    <button id="galNext" class="gallery-arrow" aria-label="Next image"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ══════════════════════════════════════════ -->
+<!-- ═══════════════ SPONSORS ══════════════════════════════════════ -->
+<section id="sponsors" class="bg-paper border-ink-bottom py-5 overflow-hidden" aria-label="Sponsors">
+  <div class="container text-center mb-5 reveal-up">
+    <h2 class="section-title mb-2 text-ink">BACKED <span class="text-accent">BY.</span></h2>
+    <p class="font-mono text-muted mb-0">Thanks to the people who made Aurora Fest possible.</p>
+  </div>
+  
+  <div class="sponsors-wrapper reveal-up" style="--delay:100ms">
+    <div class="sponsors-track" id="sponsorsTrack1"></div>
+    <div class="sponsors-track reverse" id="sponsorsTrack2"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════════════════════════════════ -->
+<section id="faq" class="py-5 bg-paper border-ink-bottom">
+  <div class="container py-4">
+    <h2 class="section-title mb-5 reveal-up" style="--delay:0ms">GOT <span class="text-accent-2">QUESTIONS?</span></h2>
+    <div class="accordion custom-accordion reveal-up" id="faqAccordion" style="--delay:100ms">
+      
+      <div class="accordion-item">
+        <h3 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
+            CAN NON-STUDENTS ATTEND?
+            <i class="fa-solid fa-circle-plus acc-icon ms-auto" aria-hidden="true"></i>
+          </button>
+        </h3>
+        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+          <div class="accordion-body font-mono">
+            No. A valid Northlight student ID is strictly required for entry. We check at all gates.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h3 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false">
+            ARE ENERGY DRINKS REALLY FREE?
+            <i class="fa-solid fa-circle-plus acc-icon ms-auto" aria-hidden="true"></i>
+          </button>
+        </h3>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body font-mono">
+            Yes, our sponsors have provided enough caffeine to keep a small town awake for a week. Consume responsibly.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h3 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false">
+            HOW DO I CANCEL A TICKET?
+            <i class="fa-solid fa-circle-plus acc-icon ms-auto" aria-hidden="true"></i>
+          </button>
+        </h3>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body font-mono">
+            Open the "MY EVENTS" panel from the navigation bar. You'll see all your registered events and a cancel button for each.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h3 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false">
+            IS THERE PARKING AVAILABLE?
+            <i class="fa-solid fa-circle-plus acc-icon ms-auto" aria-hidden="true"></i>
+          </button>
+        </h3>
+        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body font-mono">
+            The main campus lot is closed for the Battle of Bands stage. Use the south ground parking, but it fills up fast.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════════ FOOTER ════════════════════════════════════════ -->
-<footer id="contact" class="footer bg-ink text-paper border-ink-top py-5 overflow-hidden">
+<footer id="contact" class="footer bg-ink text-paper py-5 overflow-hidden">
   <div class="container position-relative z-1">
     <div class="row g-4 border-paper-bottom pb-4 mb-4">
       <div class="col-md-6">
         <h4 class="footer-head text-sun">GET IN TOUCH</h4>
         <ul class="list-unstyled footer-contact font-mono">
-          <li><i class="fa-solid fa-location-dot me-2"></i>Northlight Institute of Technology, NH-12</li>
-          <li><i class="fa-solid fa-envelope me-2"></i>hello@aurorafest26.edu</li>
-          <li><i class="fa-solid fa-phone me-2"></i>+91 98765 43210</li>
+          <li><i class="fa-solid fa-location-dot me-2" aria-hidden="true"></i>Northlight Institute of Technology, NH-12</li>
+          <li><i class="fa-solid fa-envelope me-2" aria-hidden="true"></i>hello@aurorafest26.edu</li>
+          <li><i class="fa-solid fa-phone me-2" aria-hidden="true"></i>+91 98765 43210</li>
         </ul>
       </div>
       <div class="col-md-6 text-md-end">
         <h4 class="footer-head text-accent">STALK US</h4>
         <div class="social-links d-flex gap-3 justify-content-md-end mt-3">
-          <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" class="social-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" class="social-btn" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+          <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>
@@ -409,7 +514,9 @@
       </div>
     </div>
   </div>
-  <div class="footer-wordmark" aria-hidden="true">AURORA</div>
+  <div class="footer-wordmark-wrap">
+    <div class="footer-wordmark" aria-hidden="true">AURORA FEST</div>
+  </div>
 </footer>
 
 <!-- ═══════════════ MY EVENTS OFFCANVAS ════════════════════════ -->
@@ -422,6 +529,19 @@
 </div>
 
 <!-- ═══════════════ TOAST ════════════════════════════════════════ -->
+<!-- ═══════════════ GALLERY LIGHTBOX ══════════════════════════════════════ -->
+<div class="modal fade" id="galleryLightbox" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-body p-0 position-relative text-center">
+        <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close" style="z-index:10; filter: invert(1);"></button>
+        <img id="lightboxImg" src="" alt="" class="img-fluid border-ink" style="max-height: 85vh; object-fit: contain; background: var(--paper); border-width: 4px;">
+        <div id="lightboxCaption" class="mt-2 font-mono fw-bold text-paper" style="font-size: 1.2rem; text-shadow: 2px 2px 0 var(--ink);"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:1100">
   <div id="sysToast" class="toast riso-modal bg-paper" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header border-ink-bottom bg-sun text-ink">
@@ -445,18 +565,27 @@
         <form id="regForm" novalidate>
           <div class="mb-3">
             <label for="regName" class="form-label font-mono fw-bold">FULL NAME</label>
-            <input type="text" class="form-control reg-input" id="regName" required placeholder="e.g. Priya Nair">
-            <div class="invalid-feedback font-mono" id="regNameFeedback"></div>
+            <div class="input-group has-validation">
+              <span class="input-group-text"><i class="fa-solid fa-user" aria-hidden="true"></i></span>
+              <input type="text" class="form-control reg-input" id="regName" required placeholder="e.g. Priya Nair">
+              <div class="invalid-feedback font-mono" id="regNameFeedback"></div>
+            </div>
           </div>
           <div class="mb-3">
             <label for="regEmail" class="form-label font-mono fw-bold">STUDENT EMAIL</label>
-            <input type="email" class="form-control reg-input" id="regEmail" required placeholder="you@college.edu">
-            <div class="invalid-feedback font-mono" id="regEmailFeedback"></div>
+            <div class="input-group has-validation">
+              <span class="input-group-text"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+              <input type="email" class="form-control reg-input" id="regEmail" required placeholder="you@college.edu">
+              <div class="invalid-feedback font-mono" id="regEmailFeedback"></div>
+            </div>
           </div>
           <div class="mb-4">
             <label for="regPhone" class="form-label font-mono fw-bold">PHONE NUMBER</label>
-            <input type="tel" class="form-control reg-input" id="regPhone" required placeholder="10-digit mobile number">
-            <div class="invalid-feedback font-mono" id="regPhoneFeedback"></div>
+            <div class="input-group has-validation">
+              <span class="input-group-text"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+              <input type="tel" class="form-control reg-input" id="regPhone" required placeholder="10-digit mobile number">
+              <div class="invalid-feedback font-mono" id="regPhoneFeedback"></div>
+            </div>
           </div>
           <button type="submit" class="btn btn-ink w-100 py-3">CONFIRM REGISTRATION</button>
         </form>
@@ -471,7 +600,7 @@
     <div class="modal-content riso-modal text-center">
       <div class="modal-body p-5 bg-paper">
         <div class="success-icon text-accent mb-4">
-          <i class="fa-solid fa-certificate fa-4x" id="successStamp"></i>
+          <i class="fa-solid fa-circle-check fa-4x" id="successStamp" aria-hidden="true"></i>
         </div>
         <h2 class="modal-title font-head mb-3" id="successModalTitle">YOU'RE IN!</h2>
         <p id="successMsg" class="font-body fs-5 text-ink mb-4"></p>
@@ -483,7 +612,7 @@
 
 <!-- ═══════════════ THEME TOGGLE FLOATING BUTTON ════════════════ -->
 <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
-  <i class="fa-solid fa-moon"></i>
+  <i class="fa-solid fa-moon" aria-hidden="true"></i>
 </button>
 
 <!-- Bootstrap JS -->

@@ -62,8 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateIcon() {
     const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
     themeToggle.innerHTML = isDark
-      ? '<i class="fa-solid fa-sun"></i>'
-      : '<i class="fa-solid fa-moon"></i>';
+      ? '<i class="fa-solid fa-sun" aria-hidden="true"></i>'
+      : '<i class="fa-solid fa-moon" aria-hidden="true"></i>';
   }
   updateIcon(); // sync icon with state set in <head>
 
@@ -78,10 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ── 4. HELPERS ────────────────────────────────────────────────────
 const CATEGORY_META = {
-  Technical: { colorClass: "cat-technical", label: "TECHNICAL" },
-  Cultural:  { colorClass: "cat-cultural",  label: "CULTURAL"  },
-  Sports:    { colorClass: "cat-sports",    label: "SPORTS"    },
-  Workshop:  { colorClass: "cat-workshop",  label: "WORKSHOP"  }
+  Technical: { colorClass: "cat-technical", label: "TECHNICAL", icon: "fa-microchip" },
+  Cultural:  { colorClass: "cat-cultural",  label: "CULTURAL",  icon: "fa-masks-theater" },
+  Sports:    { colorClass: "cat-sports",    label: "SPORTS",    icon: "fa-futbol" },
+  Workshop:  { colorClass: "cat-workshop",  label: "WORKSHOP",  icon: "fa-screwdriver-wrench" }
 };
 
 function formatDatePieces(iso) {
@@ -106,9 +106,9 @@ function formatGCalUrl(event) {
 
 function renderBarcodeSeats(event) {
   const { seatsLeft } = event;
-  if (seatsLeft === 0)  return `<div class="seats-barcode barcode-full" aria-hidden="true">|| |||| | ||||| |</div><div class="seats-text">FULL</div>`;
-  if (seatsLeft <= 5)   return `<div class="seats-barcode barcode-low"  aria-hidden="true">|| |||| | ||||| |</div><div class="seats-text text-low">ONLY ${seatsLeft} LEFT</div>`;
-  return `<div class="seats-barcode" aria-hidden="true">|| |||| | ||||| |</div><div class="seats-text">${seatsLeft} SEATS LEFT</div>`;
+  if (seatsLeft === 0)  return `<div class="seats-barcode barcode-full" aria-hidden="true">|| |||| | ||||| |</div><div class="seats-text"><i class="fa-solid fa-chair" aria-hidden="true"></i> FULL</div>`;
+  if (seatsLeft <= 5)   return `<div class="seats-barcode barcode-low"  aria-hidden="true">|| |||| | ||||| |</div><div class="seats-text text-low"><i class="fa-solid fa-chair" aria-hidden="true"></i> ONLY ${seatsLeft} LEFT</div>`;
+  return `<div class="seats-barcode" aria-hidden="true">|| |||| | ||||| |</div><div class="seats-text"><i class="fa-solid fa-chair" aria-hidden="true"></i> ${seatsLeft} SEATS LEFT</div>`;
 }
 
 function registerButton(event) {
@@ -133,7 +133,7 @@ function renderEventCard(event, idx) {
             <span class="ticket-month">${month}</span>
             <span class="ticket-day">${day}</span>
           </div>
-          <div class="ticket-stamp">${meta.label}</div>
+          <div class="ticket-stamp"><i class="fa-solid ${meta.icon}" aria-hidden="true"></i> ${meta.label}</div>
         </div>
         <div class="ticket-right">
           ${isFull ? '<div class="stamp-sold-out">FULL</div>' : ''}
@@ -141,6 +141,7 @@ function renderEventCard(event, idx) {
             <h3 class="event-name" id="ev-name-${event.id}">${event.name.toUpperCase()}</h3>
             <p class="event-desc">${event.description}</p>
             <ul class="event-meta list-unstyled" aria-label="Event details">
+              <li><i class="fa-solid fa-calendar-days" aria-hidden="true"></i>${event.date}</li>
               <li><i class="fa-solid fa-clock" aria-hidden="true"></i>${event.time}</li>
               <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i>${event.venue}</li>
             </ul>
@@ -149,7 +150,7 @@ function renderEventCard(event, idx) {
           <div class="ticket-footer">
             <div class="ticket-seats">${renderBarcodeSeats(event)}</div>
             <div class="d-flex gap-2">
-              <a href="${calUrl}" target="_blank" rel="noopener" class="btn btn-card p-2" aria-label="Add to Calendar" title="Add to Calendar"><i class="fa-solid fa-calendar-plus"></i></a>
+              <a href="${calUrl}" target="_blank" rel="noopener" class="btn btn-card p-2" aria-label="Add to Calendar" title="Add to Calendar"><i class="fa-solid fa-calendar-plus" aria-hidden="true"></i></a>
               ${registerButton(event)}
             </div>
           </div>
@@ -333,7 +334,7 @@ function updateMyEvents() {
   if (myRegistrations.length === 0) {
     myEventsBody.innerHTML = `
       <div class="text-center py-5 text-muted">
-        <i class="fa-solid fa-ticket fa-3x mb-3 text-ink"></i>
+        <i class="fa-solid fa-ticket fa-3x mb-3 text-ink" aria-hidden="true"></i>
         <h6 class="font-head text-ink mb-1">NO TICKETS YET</h6>
         <p class="font-body small">Go register for something!</p>
       </div>`;
@@ -348,11 +349,11 @@ function updateMyEvents() {
         <div class="card-body">
           <h6 class="font-head mb-1">${ev.name}</h6>
           <p class="font-mono small mb-3 text-muted">
-            <i class="fa-solid fa-calendar me-1"></i>${ev.date} at ${ev.time}<br>
-            <i class="fa-solid fa-location-dot me-1"></i>${ev.venue}
+            <i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i>${ev.date} at ${ev.time}<br>
+            <i class="fa-solid fa-location-dot me-1" aria-hidden="true"></i>${ev.venue}
           </p>
           <div class="d-flex gap-2">
-            <a href="${formatGCalUrl(ev)}" target="_blank" rel="noopener" class="btn btn-sm btn-ink flex-grow-1"><i class="fa-solid fa-calendar-plus me-1"></i>Add</a>
+            <a href="${formatGCalUrl(ev)}" target="_blank" rel="noopener" class="btn btn-sm btn-ink flex-grow-1"><i class="fa-solid fa-calendar-plus me-1" aria-hidden="true"></i>Add</a>
             <button class="btn btn-sm btn-accent cancel-btn" data-id="${ev.id}" data-email="${reg.email}">Cancel</button>
           </div>
         </div>
@@ -602,4 +603,351 @@ function fireConfetti() {
   if (!t) return;
   // Clone inner HTML so the loop is seamless at the midpoint
   t.innerHTML = t.innerHTML + t.innerHTML;
+})();
+
+
+
+// ── J. INTRO SPLASH ───────────────────────────────────────────────
+(function initIntro() {
+  const intro = document.getElementById("intro");
+  if (!intro) {
+    document.documentElement.classList.add('site-ready');
+    return;
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('site-ready');
+    intro.remove();
+    return;
+  }
+
+  document.documentElement.style.overflow = 'hidden';
+
+  const wm = document.getElementById("introWordmark");
+  const w1 = document.createElement("div"); w1.className = "intro-line";
+  "AURORA".split("").forEach((char, i) => {
+    const isHero = i === 2; // R
+    const s = document.createElement("span");
+    s.className = "intro-letter" + (isHero ? " intro-letter-hero" : "");
+    s.textContent = char;
+    s.style.setProperty('--rot', (Math.random() * 180 - 90) + 'deg');
+    s.style.setProperty('--s', isHero ? 3.5 : (Math.random() * 1.4 + 1.6));
+    s.style.setProperty('--tx', (Math.random() * 40 - 20) + 'vw');
+    s.style.setProperty('--ty', (Math.random() * 30 - 15) + 'vh');
+    s.style.setProperty('--delay', isHero ? '0.35s' : (i * 0.05) + 's');
+    w1.appendChild(s);
+  });
+  
+  const w2 = document.createElement("div"); w2.className = "intro-line";
+  "FEST ".split("").forEach((char, i) => {
+    const isHero = char === "S";
+    const s = document.createElement("span");
+    s.className = "intro-letter" + (char === " " ? " intro-space" : "") + (isHero ? " intro-letter-hero" : "");
+    s.textContent = char;
+    s.style.setProperty('--rot', (Math.random() * 180 - 90) + 'deg');
+    s.style.setProperty('--s', isHero ? 3.5 : (Math.random() * 1.4 + 1.6));
+    s.style.setProperty('--tx', (Math.random() * 40 - 20) + 'vw');
+    s.style.setProperty('--ty', (Math.random() * 30 - 15) + 'vh');
+    s.style.setProperty('--delay', isHero ? '0.35s' : (0.3 + i * 0.05) + 's');
+    w2.appendChild(s);
+  });
+
+  const yr = document.createElement("span");
+  yr.className = "intro-letter intro-year bg-sun text-ink";
+  yr.textContent = "'26";
+  yr.style.setProperty('--rot', '-15deg');
+  yr.style.setProperty('--s', '2');
+  yr.style.setProperty('--tx', '10vw');
+  yr.style.setProperty('--ty', '10vh');
+  yr.style.setProperty('--delay', '0.6s');
+  w2.appendChild(yr);
+
+  wm.appendChild(w1);
+  wm.appendChild(w2);
+
+  const sparks = document.getElementById("introSparks");
+  const colors = ['text-accent', 'text-sun', 'text-accent-2', 'text-paper'];
+  for (let i=0; i<6; i++) {
+    const sp = document.createElement("i");
+    sp.className = `fa-solid fa-star intro-spark ${colors[i%4]}`;
+    sp.style.top = (Math.random() * 80 + 10) + '%';
+    sp.style.left = (Math.random() * 80 + 10) + '%';
+    sp.style.animationDelay = (0.6 + Math.random() * 0.5) + 's';
+    sparks.appendChild(sp);
+  }
+
+  let exitTimer;
+  function endIntro() {
+    clearTimeout(exitTimer);
+    intro.classList.add('intro-exit');
+    document.documentElement.classList.add('site-ready');
+    document.documentElement.style.overflow = '';
+    setTimeout(() => intro.remove(), 800);
+  }
+
+  document.getElementById('introSkip').addEventListener('click', endIntro);
+  exitTimer = setTimeout(endIntro, 1550);
+})();
+
+// ── K. 3D GALLERY ─────────────────────────────────────────────────
+(function initGallery() {
+  const ring = document.getElementById("galleryRing");
+  const section = document.getElementById("gallery");
+  if (!ring || !section) return;
+
+  section.setAttribute('tabindex', '0');
+
+  const galleryImages = [
+    { src: "images/gallery-1.jpg", alt: "Students collaborating at a table", caption: "HACKATHON NIGHT" },
+    { src: "images/gallery-2.jpg", alt: "Band performing on stage", caption: "BATTLE OF BANDS" },
+    { src: "images/gallery-3.jpg", alt: "Football match on concrete court", caption: "STREET FOOTBALL" },
+    { src: "images/gallery-4.jpg", alt: "Design workshop presentation", caption: "FIGMA SPRINT" },
+    { src: "images/gallery-5.jpg", alt: "Dancer on main stage", caption: "SOLO DANCE" },
+    { src: "images/gallery-6.jpg", alt: "Cybersecurity capture the flag event", caption: "CTF CHALLENGE" },
+    { src: "images/gallery-7.jpg", alt: "Table tennis tournament", caption: "TABLE TENNIS" },
+    { src: "images/gallery-8.jpg", alt: "Student making pottery", caption: "POTTERY WORKSHOP" }
+  ];
+
+  const n = galleryImages.length;
+  let currentAngle = 0;
+  const angleStep = 360 / n;
+  let radius = 0;
+  let activeIndex = 0;
+
+  galleryImages.forEach((imgObj, i) => {
+    const angle = i * angleStep;
+    const tilt = (Math.random() * 6 - 3).toFixed(1);
+    
+    const card = document.createElement("div");
+    card.className = "gallery-card";
+    card.dataset.tilt = tilt;
+    card.style.transform = `rotateY(${angle}deg) translateZ(300px) rotateZ(${tilt}deg)`;
+    
+    const img = document.createElement("img");
+    img.src = imgObj.src;
+    img.alt = imgObj.alt;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.width = 244;
+    img.height = 294;
+    
+    const colors = ['var(--accent)', 'var(--accent-2)', 'var(--sun)'];
+    const fallbackColor = colors[i % colors.length];
+    
+    img.onerror = () => {
+      const fallback = document.createElement("div");
+      fallback.style.width = "100%";
+      fallback.style.height = "100%";
+      fallback.style.backgroundColor = fallbackColor;
+      fallback.style.border = "2px solid var(--ink)";
+      fallback.style.display = "flex";
+      fallback.style.alignItems = "center";
+      fallback.style.justifyContent = "center";
+      fallback.style.padding = "1rem";
+      fallback.style.textAlign = "center";
+      fallback.style.color = (fallbackColor === 'var(--sun)') ? 'var(--ink)' : 'var(--paper)';
+      fallback.style.fontFamily = "var(--font-head)";
+      fallback.style.fontSize = "1.5rem";
+      fallback.textContent = imgObj.caption;
+      img.replaceWith(fallback);
+    };
+
+    const caption = document.createElement("div");
+    caption.className = "gallery-caption";
+    caption.innerHTML = `<span>${imgObj.caption}</span><i class="fa-solid fa-camera" aria-hidden="true"></i>`;
+
+    card.appendChild(img);
+    card.appendChild(caption);
+    ring.appendChild(card);
+    
+    card.addEventListener('click', () => {
+      if (window.innerWidth >= 768 && i !== activeIndex) return;
+      const lightboxModal = document.getElementById('galleryLightbox');
+      if (lightboxModal) {
+        const lbImg = document.getElementById('lightboxImg');
+        const lbCap = document.getElementById('lightboxCaption');
+        if (lbImg && lbCap) {
+          lbImg.src = imgObj.src;
+          lbImg.alt = imgObj.alt;
+          lbCap.textContent = imgObj.caption;
+          if (window.bootstrap) {
+            const bsModal = bootstrap.Modal.getOrCreateInstance(lightboxModal);
+            bsModal.show();
+          }
+        }
+      }
+    });
+  });
+
+  const counter = document.getElementById("galCounter");
+  const stage = document.querySelector(".gallery-stage");
+
+  function updateRadius() {
+    if (window.innerWidth < 768) return;
+    const cw = ring.offsetWidth || 260;
+    radius = Math.round((cw / 2) / Math.tan(Math.PI / n)) + 30; // 30px gap
+    
+    const cards = ring.querySelectorAll('.gallery-card');
+    cards.forEach((card, i) => {
+      const angle = i * angleStep;
+      const tilt = card.dataset.tilt || "0";
+      card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px) rotateZ(${tilt}deg)`;
+    });
+  }
+
+  function rotateRing() {
+    if (window.innerWidth < 768) return;
+    ring.style.transform = `translateZ(-${radius}px) rotateY(${currentAngle}deg)`;
+    
+    let normalizedAngle = currentAngle % 360;
+    if (normalizedAngle > 0) normalizedAngle = 360 - normalizedAngle;
+    else normalizedAngle = Math.abs(normalizedAngle);
+    
+    activeIndex = Math.round(normalizedAngle / angleStep) % n;
+    
+    if (counter) {
+      counter.textContent = String(activeIndex + 1).padStart(2, '0') + " / " + String(n).padStart(2, '0');
+    }
+    
+    const cards = ring.querySelectorAll('.gallery-card');
+    cards.forEach((card, idx) => {
+      if (idx === activeIndex) {
+        card.style.opacity = '1';
+        card.style.pointerEvents = 'auto';
+      } else {
+        card.style.opacity = '0.55';
+        card.style.pointerEvents = 'none';
+      }
+    });
+  }
+
+  window.addEventListener('resize', () => {
+    updateRadius();
+    rotateRing();
+  });
+  updateRadius();
+  rotateRing();
+
+  document.getElementById("galPrev")?.addEventListener("click", () => {
+    if (window.innerWidth < 768) {
+      if (stage) stage.scrollBy({ left: -window.innerWidth * 0.75 - 24, behavior: 'smooth' });
+      return;
+    }
+    currentAngle += angleStep;
+    rotateRing();
+  });
+  
+  document.getElementById("galNext")?.addEventListener("click", () => {
+    if (window.innerWidth < 768) {
+      if (stage) stage.scrollBy({ left: window.innerWidth * 0.75 + 24, behavior: 'smooth' });
+      return;
+    }
+    currentAngle -= angleStep;
+    rotateRing();
+  });
+
+  let startX = 0;
+  let isDragging = false;
+  let startAngle = 0;
+
+  function onPointerDown(e) {
+    if (window.innerWidth < 768) return;
+    if (e.target.closest('.gallery-arrow')) return;
+    isDragging = true;
+    startX = e.clientX || (e.touches && e.touches[0].clientX);
+    startAngle = currentAngle;
+    ring.style.transition = 'none';
+  }
+
+  function onPointerMove(e) {
+    if (!isDragging) return;
+    const x = e.clientX || (e.touches && e.touches[0].clientX);
+    if (x === undefined) return;
+    const dx = x - startX;
+    currentAngle = startAngle + (dx * 0.4);
+    rotateRing();
+  }
+
+  function onPointerUp() {
+    if (!isDragging) return;
+    isDragging = false;
+    ring.style.transition = 'transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1)';
+    currentAngle = Math.round(currentAngle / angleStep) * angleStep;
+    rotateRing();
+  }
+
+  if (stage) {
+    stage.addEventListener("mousedown", onPointerDown);
+    stage.addEventListener("touchstart", onPointerDown, {passive: true});
+    window.addEventListener("mousemove", onPointerMove);
+    window.addEventListener("touchmove", onPointerMove, {passive: true});
+    window.addEventListener("mouseup", onPointerUp);
+    window.addEventListener("touchend", onPointerUp);
+    
+    stage.addEventListener("scroll", () => {
+      if (window.innerWidth >= 768) return;
+      const scrollAmt = (window.innerWidth * 0.75) + 24;
+      const scrollIndex = Math.round(stage.scrollLeft / scrollAmt);
+      const newActive = Math.min(Math.max(scrollIndex, 0), n - 1);
+      if (counter) {
+        counter.textContent = String(newActive + 1).padStart(2, '0') + " / " + String(n).padStart(2, '0');
+      }
+    });
+    if (window.innerWidth < 768 && counter) {
+      counter.textContent = "01 / " + String(n).padStart(2, '0');
+    }
+  }
+
+  let autoRotateInterval;
+  let isHovered = false;
+  const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function startAutoRotate() {
+    if (isReducedMotion || window.innerWidth < 768) return;
+    stopAutoRotate();
+    autoRotateInterval = setInterval(() => {
+      if (!isHovered && !isDragging) {
+        const lightboxEl = document.getElementById('galleryLightbox');
+        const isLightboxOpen = lightboxEl && lightboxEl.classList.contains('show');
+        if (!isLightboxOpen) {
+          currentAngle -= angleStep;
+          rotateRing();
+        }
+      }
+    }, 3500);
+  }
+
+  function stopAutoRotate() {
+    clearInterval(autoRotateInterval);
+  }
+
+  section.addEventListener('mouseenter', () => isHovered = true);
+  section.addEventListener('mouseleave', () => isHovered = false);
+  section.addEventListener('focusin', () => isHovered = true);
+  section.addEventListener('focusout', () => isHovered = false);
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startAutoRotate();
+        } else {
+          stopAutoRotate();
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(section);
+  }
+
+  section.addEventListener('keydown', (e) => {
+    if (window.innerWidth < 768) return;
+    if (e.key === 'ArrowLeft') {
+      currentAngle += angleStep;
+      rotateRing();
+    } else if (e.key === 'ArrowRight') {
+      currentAngle -= angleStep;
+      rotateRing();
+    }
+  });
+
 })();
