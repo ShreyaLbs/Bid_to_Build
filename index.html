@@ -65,16 +65,11 @@
       <span class="logo-text nav-brand-text">AURORA FEST '26</span>
     </a>
     
-    <!-- CONTROLS (Right Edge) -->
-    <div class="d-flex align-items-center order-lg-last ms-auto gap-2">
-      <button id="themeToggle" class="theme-toggle-btn nav-theme-toggle" aria-label="Toggle dark mode">
-        <i class="fa-solid fa-moon" aria-hidden="true"></i>
-      </button>
-      <button class="navbar-toggler nav-hamburger d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
+    <!-- HAMBURGER (Right Edge, mobile only) -->
+    <button class="navbar-toggler nav-hamburger d-lg-none order-lg-last ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
     <!-- COLLAPSE (Middle on Desktop) -->
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -625,6 +620,10 @@
 </div>
 
 <!-- ═══════════════ THEME TOGGLE FLOATING BUTTON ════════════════ -->
+<button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+  <i class="fa-solid fa-moon" aria-hidden="true"></i>
+</button>
+
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <!-- Custom JS -->

@@ -698,14 +698,14 @@ function fireConfetti() {
   section.setAttribute('tabindex', '0');
 
   const galleryImages = [
-    { src: "images/gallery-1.jpg", alt: "Students collaborating at a table", caption: "HACKATHON NIGHT" },
-    { src: "images/gallery-2.jpg", alt: "Band performing on stage", caption: "BATTLE OF BANDS" },
-    { src: "images/gallery-3.jpg", alt: "Football match on concrete court", caption: "STREET FOOTBALL" },
-    { src: "images/gallery-4.jpg", alt: "Design workshop presentation", caption: "FIGMA SPRINT" },
-    { src: "images/gallery-5.jpg", alt: "Dancer on main stage", caption: "SOLO DANCE" },
-    { src: "images/gallery-6.jpg", alt: "Cybersecurity capture the flag event", caption: "CTF CHALLENGE" },
-    { src: "images/gallery-7.jpg", alt: "Table tennis tournament", caption: "TABLE TENNIS" },
-    { src: "images/gallery-8.jpg", alt: "Student making pottery", caption: "POTTERY WORKSHOP" }
+    { src: "assets/images/events/hackathon-night.jpg", alt: "Students collaborating at a table", caption: "HACKATHON NIGHT" },
+    { src: "assets/images/events/battle-of-bands.jpg", alt: "Band performing on stage", caption: "BATTLE OF BANDS" },
+    { src: "assets/images/events/street-football.jpg", alt: "Football match on concrete court", caption: "STREET FOOTBALL" },
+    { src: "assets/images/events/figma-sprint.jpg", alt: "Design workshop presentation", caption: "FIGMA SPRINT" },
+    { src: "assets/images/events/solo-dance.jpg", alt: "Dancer on main stage", caption: "SOLO DANCE" },
+    { src: "assets/images/events/ctf-challenge.jpg", alt: "Cybersecurity capture the flag event", caption: "CTF CHALLENGE" },
+    { src: "assets/images/events/table-tennis.jpg", alt: "Table tennis tournament", caption: "TABLE TENNIS" },
+    { src: "assets/images/events/pottery-workshop.jpg", alt: "Student making pottery", caption: "POTTERY WORKSHOP" }
   ];
 
   const n = galleryImages.length;
@@ -1015,4 +1015,40 @@ function fireConfetti() {
       }
     });
   }, { passive: true });
+})();
+
+//  N. TYPOGRAPHY INTERACTION 
+(function initTypographyInteraction() {
+  const heroTitle = document.getElementById('heroTitleInteract');
+  if (!heroTitle) return;
+
+  function press() { heroTitle.classList.add('is-pressed'); }
+  function release() { heroTitle.classList.remove('is-pressed'); }
+
+  heroTitle.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    heroTitle.setPointerCapture(e.pointerId);
+    press();
+  });
+  heroTitle.addEventListener('pointerup', (e) => {
+    heroTitle.releasePointerCapture(e.pointerId);
+    release();
+  });
+  heroTitle.addEventListener('pointercancel', release);
+
+  heroTitle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (!e.repeat) press();
+    }
+  });
+  heroTitle.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      release();
+    }
+  });
+
+  heroTitle.addEventListener('blur', release);
+  window.addEventListener('blur', release);
 })();
