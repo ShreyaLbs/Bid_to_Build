@@ -38,7 +38,7 @@ function loadData() {
     const myRegs = localStorage.getItem('auroraMyRegs');
     if (myRegs) myRegistrations = JSON.parse(myRegs);
   } catch (e) {
-    console.error("Failed to load local data", e);
+    // localStorage unavailable or data corrupted — fail silently
   }
 }
 
@@ -48,7 +48,7 @@ function saveData() {
     localStorage.setItem('auroraRegs',   JSON.stringify(Array.from(registrations.entries()).map(([id, s]) => [id, Array.from(s)])));
     localStorage.setItem('auroraMyRegs', JSON.stringify(myRegistrations));
   } catch (e) {
-    console.error("Failed to save local data", e);
+    // localStorage quota exceeded or unavailable — fail silently
   }
 }
 
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.documentElement.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
     updateIcon();
     try { localStorage.setItem('auroraTheme', isDark ? 'light' : 'dark'); }
-    catch(e) { console.error("Could not save theme", e); }
+    catch(e) { /* localStorage unavailable — theme won't persist */ }
   });
 });
 
@@ -126,7 +126,7 @@ function renderEventCard(event, idx) {
   const delay  = (idx % 4) * 80; // stagger by column
 
   return `
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-md-6 col-xl-4">
       <article class="event-card card-pop ${isFull ? 'event-card-full' : ''}" style="animation-delay:${delay}ms" aria-labelledby="ev-name-${event.id}">
         <div class="ticket-left ${meta.colorClass}">
           <div class="ticket-date">
@@ -950,4 +950,69 @@ function fireConfetti() {
     }
   });
 
+})();
+
+// ═══════════════ L. SPONSORS ════════════════════════════════════════════════════════════════════
+(function initSponsors() {
+  const track1 = document.getElementById('sponsorsTrack1');
+  const track2 = document.getElementById('sponsorsTrack2');
+  if (!track1 || !track2) return;
+
+  const sponsors = [
+    { name: "NULLPTR LABS", icon: "fa-solid fa-code", color: "var(--accent)", font: "var(--font-mono)", tier: "TITLE" },
+    { name: "STUDIOBLOB", icon: "fa-solid fa-palette", color: "var(--accent-2)", font: "var(--font-head)", tier: "GOLD" },
+    { name: "MEGASTACK", icon: "fa-solid fa-layer-group", color: "var(--sun)", font: "sans-serif", tier: "SILVER", weight: "900" },
+    { name: "TIDAL OPS", icon: "fa-solid fa-water", color: "var(--ink)", font: "var(--font-head)", tier: "SILVER" },
+    { name: "KITEBASE", icon: "fa-solid fa-paper-plane", color: "var(--accent)", font: "var(--font-mono)", tier: "GOLD" },
+    { name: "FERNWAVE", icon: "fa-solid fa-leaf", color: "var(--accent-2)", font: "serif", tier: "SILVER", style: "italic" },
+    { name: "POLLEN", icon: "fa-solid fa-seedling", color: "var(--sun)", font: "sans-serif", tier: "TITLE", weight: "900" },
+    { name: "NORTHBEAM", icon: "fa-solid fa-compass", color: "var(--ink)", font: "var(--font-head)", tier: "GOLD" }
+  ];
+
+  function createCardHTML(s, i) {
+    const delay = -(i * 0.7) + "s";
+    return `
+      <div class="sponsor-card" style="animation-delay: ${delay};">
+        <span class="sponsor-tier">${s.tier}</span>
+        <div class="sponsor-logo" style="font-family: ${s.font}; font-weight: ${s.weight || 'bold'}; font-style: ${s.style || 'normal'};">
+          <i class="${s.icon}" style="color: ${s.color};" aria-hidden="true"></i>
+          <span>${s.name}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  let rowHTML = '';
+  sponsors.forEach((s, i) => { rowHTML += createCardHTML(s, i); });
+  track1.innerHTML = rowHTML + rowHTML;
+
+  let row2HTML = '';
+  const revSponsors = [...sponsors].reverse();
+  revSponsors.forEach((s, i) => { row2HTML += createCardHTML(s, i); });
+  track2.innerHTML = row2HTML + row2HTML;
+})();
+
+// ═══════════════ M. SCROLL SPY FOR NAVBAR ════════════════════════════════════════════════
+(function initScrollSpy() {
+  const sections = document.querySelectorAll('section[id], header[id], footer[id]');
+  const navLinks = document.querySelectorAll('.nav-slim-link');
+  if (!navLinks.length) return;
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollPos = window.scrollY + 100; // offset for navbar height
+    
+    sections.forEach(sec => {
+      if (sec.offsetTop <= scrollPos && sec.offsetTop + sec.offsetHeight > scrollPos) {
+        current = sec.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(a => {
+      a.classList.remove('active-section');
+      if (current && a.getAttribute('href').includes(current)) {
+        a.classList.add('active-section');
+      }
+    });
+  }, { passive: true });
 })();

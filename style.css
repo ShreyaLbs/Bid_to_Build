@@ -969,34 +969,33 @@ header.hero, section, .ticker-wrap, footer {
 .offcanvas.riso-modal { border-radius: 0; }
 
 /* ── 17. THEME TOGGLE ────────────────────────────────────────── */
+/* The toggle now lives inside the navbar (.nav-theme-toggle).
+   These rules are kept as a neutral base and are overridden
+   by the more-specific .nav-theme-toggle selector below. */
 .theme-toggle-btn {
-  position: fixed;
-  right: 0; top: 50%;
-  transform: translateY(-50%);
-  width: 48px; height: 48px;
-  border-radius: 50px 0 0 50px;
-  border: var(--border-ink);
-  border-right: none;
-  background-color: var(--card);
+  position: static;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background-color: var(--paper);
   color: var(--ink);
-  box-shadow: -4px 4px 0 var(--ink);
-  z-index: 1040;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.15s ease;
 }
 .theme-toggle-btn:hover { background-color: var(--sun); }
-@media (max-width: 575px) {
-  .theme-toggle-btn {
-    top: auto; bottom: 72px; right: 16px;
-    transform: none;
-    border-radius: 50%;
-    border-right: var(--border-ink);
-    box-shadow: 4px 4px 0 var(--ink);
-  }
+
+/* btn-nav-secondary needs position:relative for the badge */
+.btn-nav-secondary {
+  position: relative;
+  cursor: pointer;
+}
+.btn-nav-primary {
+  cursor: pointer;
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -1521,3 +1520,452 @@ html:not(.site-ready) .card-pop {
     display: flex;
   }
 }
+
+/* ═══════════════ SPONSORS ══════════════════════════════════════ */
+.sponsors-wrapper {
+  overflow: hidden;
+  max-width: 100%;
+  position: relative;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  padding-block: 1rem;
+}
+.sponsors-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  margin-bottom: 2rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sponsors-track {
+    animation: scroll-left 35s linear infinite;
+  }
+  .sponsors-track.reverse {
+    animation: scroll-right 40s linear infinite;
+  }
+  .sponsors-wrapper:hover .sponsors-track,
+  .sponsors-wrapper:focus-within .sponsors-track {
+    animation-play-state: paused;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sponsors-track {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .sponsors-wrapper {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.sponsor-card {
+  width: 220px;
+  height: 110px;
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 6px 6px 0 var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sponsor-card {
+    animation: sponsor-bob 4s ease-in-out infinite alternate;
+  }
+  .sponsor-card:nth-child(even) {
+    animation-delay: -2s;
+  }
+  .sponsor-card:nth-child(3n) {
+    animation-delay: -1s;
+  }
+  @keyframes sponsor-bob {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+  }
+}
+.sponsor-card:hover {
+  transform: translateY(-8px) rotate(1deg) !important;
+  box-shadow: 10px 10px 0 var(--sun);
+  z-index: 10;
+  animation-play-state: paused;
+}
+.sponsor-tier {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: var(--ink);
+  opacity: 0.7;
+}
+.sponsor-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  color: var(--ink);
+}
+.sponsor-logo i {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 575px) {
+  .sponsor-card {
+    width: 160px;
+    height: 90px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .sponsor-logo {
+    font-size: 1rem;
+  }
+  .sponsor-card:hover {
+    box-shadow: 6px 6px 0 var(--sun);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .sponsors-track {
+      animation: scroll-left 50s linear infinite;
+    }
+    .sponsors-track.reverse {
+      animation: scroll-right 55s linear infinite;
+    }
+  }
+}
+
+/* ═══════════════ NAVBAR (SLIM) ══════════════════════════════════════ */
+.navbar-slim {
+  padding: 10px 0 !important;
+  border-bottom: 3px solid var(--ink) !important;
+  position: relative;
+  z-index: 1020;
+}
+.nav-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: var(--accent);
+  width: 0%;
+  z-index: 2;
+  transition: width 0.1s linear;
+}
+.nav-logo {
+  width: 36px !important;
+  height: 36px !important;
+}
+.nav-brand-text {
+  font-family: var(--font-head);
+  font-size: 1.25rem !important;
+}
+
+/* Links */
+.navbar-slim .navbar-nav {
+  gap: 28px;
+}
+.nav-slim-link {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink) !important;
+  position: relative;
+  padding: 0.5rem 0 !important;
+  display: flex;
+  align-items: center;
+}
+.nav-slim-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.nav-slim-link:hover::after {
+  transform: scaleX(1);
+}
+.nav-slim-link.active-section::after {
+  background-color: var(--accent);
+  transform: scaleX(1);
+}
+
+/* Actions & Buttons */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.btn-nav-primary,
+.btn-nav-secondary {
+  height: 40px;
+  border-radius: 20px;
+  border: 3px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 0.1s, box-shadow 0.1s, background-color 0.2s;
+  padding: 0 16px;
+}
+.btn-nav-primary i,
+.btn-nav-secondary i {
+  margin-right: 8px; /* icon inside has 8px of space before the text */
+}
+.btn-nav-primary {
+  background-color: var(--accent);
+  color: var(--paper) !important;
+}
+.btn-nav-secondary {
+  background-color: var(--paper);
+  color: var(--ink) !important;
+}
+.btn-nav-primary:hover,
+.btn-nav-primary:active,
+.btn-nav-secondary:hover,
+.btn-nav-secondary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* Badge */
+.nav-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--accent);
+  color: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.nav-badge.d-none { display: none !important; }
+
+/* Theme Toggle */
+.nav-theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background-color: var(--paper);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 3px 3px 0 var(--ink);
+  flex-shrink: 0;
+  padding: 0;
+}
+.nav-theme-toggle:hover,
+.nav-theme-toggle:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.nav-hamburger {
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  padding: 4px 8px;
+  background-color: var(--paper);
+}
+.nav-hamburger:focus {
+  box-shadow: none;
+}
+
+/* Mobile Layout */
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background-color: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    margin-top: 10px;
+    padding: 1rem;
+    box-shadow: 6px 6px 0 var(--ink);
+    position: absolute;
+    top: 100%;
+    left: 1rem;
+    right: 1rem;
+    z-index: 1050;
+  }
+  .navbar-slim .navbar-nav {
+    gap: 0;
+    margin-bottom: 1rem;
+  }
+  .nav-slim-link {
+    height: 48px;
+    padding: 0 1rem !important;
+  }
+  .nav-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .btn-nav-primary,
+  .btn-nav-secondary {
+    flex: 1;
+    padding: 0 8px;
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 320px) {
+  .nav-actions {
+    flex-direction: column;
+  }
+}
+
+/* Adjust scroll margin for sections for slimmer navbar */
+section, header {
+  scroll-margin-top: 80px !important;
+}
+#gallery {
+  scroll-margin-top: 80px !important;
+}
+
+/* ═══════════════ AUDIT FIXES ════════════════════════════════════ */
+
+/* F1: Global visible focus outlines for keyboard navigation */
+:focus-visible {
+  outline: 3px solid var(--accent) !important;
+  outline-offset: 3px !important;
+}
+/* Remove double-outline on Bootstrap components that add their own */
+.form-control:focus-visible,
+.form-select:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent) !important;
+}
+
+/* F2: Footer links readable in both modes */
+.footer a.text-paper {
+  color: var(--paper) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer a.text-paper:hover {
+  color: var(--sun) !important;
+}
+
+/* F3: Event meta list icon gap */
+.event-meta li i {
+  margin-right: 0.5rem;
+}
+
+/* F4: Disabled register button — never white-on-white */
+.btn-disabled,
+.btn.btn-card[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background-color: var(--card);
+  color: var(--muted) !important;
+  border-color: var(--muted);
+}
+
+/* F5: FULL event card — ensure stamp contrast */
+.event-card-full .stamp-sold-out {
+  background-color: var(--accent);
+  color: var(--paper) !important;
+}
+
+/* F6: 44px minimum tap targets on all interactive elements */
+.btn, .nav-slim-link, .btn-nav-primary, .btn-nav-secondary,
+.nav-theme-toggle, .social-btn, .gallery-arrow, .accordion-button {
+  min-height: 44px;
+}
+.nav-slim-link {
+  display: flex;
+  align-items: center;
+}
+
+/* F7: Navbar nav-actions — allow wrapping on very small screens */
+@media (max-width: 360px) {
+  .nav-actions {
+    flex-wrap: wrap;
+  }
+}
+
+/* F8: Events grid — max 3 columns on xl, 2 on md, 1 on xs */
+@media (min-width: 1400px) {
+  #eventGrid .col-xl-4 {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+  }
+}
+
+/* F9: Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* F10: Images never overflow their containers */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* F11: Dark mode — ensure text-muted is readable (4.5:1) */
+[data-bs-theme="dark"] .text-muted {
+  color: var(--muted) !important;
+}
+
+/* F12: Modal/offcanvas scroll if content is tall on small screens */
+.modal-dialog-scrollable .modal-body {
+  overflow-y: auto;
+  max-height: 70vh;
+}
+@media (max-height: 640px) {
+  .modal-dialog {
+    margin: 0.5rem auto;
+  }
+  .modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+/* F13: Prevent intro from causing horizontal scroll on narrow screens */
+#intro {
+  overflow: hidden;
+}
+
+/* F14: Gallery horizontal overflow prevention on narrow screens */
+@media (max-width: 767px) {
+  #gallery {
+    overflow-x: hidden;
+  }
+}
+
